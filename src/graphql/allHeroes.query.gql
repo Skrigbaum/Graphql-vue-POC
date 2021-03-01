@@ -1,0 +1,10 @@
+query allHeroesQuery {
+    characters {
+        results
+        {
+            id
+            name
+            species
+        }
+    }
+}
