@@ -25,7 +25,7 @@ type Comics { available: Int
 
 type Thumbnail { path: String extension: String }
 
-type Results { id: Int
+type Results { id: ID
   cursor: String!
   hasMore: Boolean!
   name: String

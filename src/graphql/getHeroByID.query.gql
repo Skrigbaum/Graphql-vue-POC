@@ -1,0 +1,12 @@
+query ($id: ID!) {
+  getHero(id: $id) {
+    id
+    name
+    description
+    comics {
+      items {
+          name
+      }
+    }
+  }
+}

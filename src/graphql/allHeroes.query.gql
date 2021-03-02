@@ -1,10 +1,12 @@
-query allHeroesQuery {
-    characters {
-        results
-        {
-            id
-            name
-            species
+query {
+    allHeroes{
+        id
+        name
+        comics {
+            available
+            items {
+                name
+            }  
         }
     }
 }
