@@ -1,7 +1,10 @@
 <template>
-  <h1 v-if="heroSelected == false">
-    {{message}}
-  </h1>
+  <div v-if="heroSelected == false"> 
+    <h1>
+      {{message}}
+    </h1>
+    <input style="margin-bottom:5px;" v-model="search" type="text" placeholder="Search..">
+  </div>
 
   <div class="header" v-if="heroSelected == true">
     <h1 class="hero-title">
@@ -24,7 +27,7 @@
       <th style="width: 60%;">Name</th>
       <th>Number of Comics</th>
     </tr>
-    <tr v-for="result in heroes" :key="result.id">
+    <tr v-for="result in filteredList" :key="result.id">
       <td>
         <span @click="selectHero(result)">
           {{result.name}}
@@ -48,20 +51,22 @@ export default {
   name: 'App',
   components: {
   },
-  setup() {
+  setup(data) {
     const message = 'Marvel Comic Database'
     let heroSelected = ref(false)
+    let search = ref('')
     let variable = ref({id: 0})
     let selectedHero = ref({})
 
     const { result } = useQuery(allHeroesQuery)
     const heroes = useResult(result, null, data => data.allHeroes)
+    console.log(heroes)
 
     // These are part of the above refrenced secondary call
     //const {query} = useQuery(getHeroByIDQuery, variable)
     //const selectedHero = useResult(query, null, data => data.getHero)
 
-    return { message, heroes, variable, selectedHero, heroSelected }
+    return {heroes, message, variable, selectedHero, heroSelected, search }
   },
   methods: {
     selectHero(hero) {
@@ -71,6 +76,16 @@ export default {
     returntoList() {
      this.selectedHero = {}
      this.heroSelected = false
+    }
+  },
+  computed: {
+    filteredList() {
+      if(this.search == '' || this.heroes == null) {
+        return this.heroes
+      }
+      return this.heroes.filter(hero => {
+        return hero.name.toLowerCase().includes(this.search.toLowerCase())
+      })
     }
   }
 }
