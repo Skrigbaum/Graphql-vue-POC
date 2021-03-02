@@ -7,17 +7,13 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+node db.js  <---- This runs the apollo server hosting the JSON loading and graphql server portion of the app.
+npm run serve  <---- This runs the Vue portion of the application 
 ```
 
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
 ```
 
 ### Customize configuration
